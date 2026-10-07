@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Entrance animations
+   ---------------------------------------------------------------------------
+   The components use `animate-in` together with `fade-in`, `zoom-in-95` and the
+   `slide-in-from-*` offsets. Those utilities are not part of Tailwind core, so
+   without this block every dialog, drawer and notification appeared as an
+   instant cut with no transition at all.
+
+   Only the utilities actually referenced in `src/` are defined - the named
+   subset, not the whole utility family - to keep the stylesheet minimal.
+--------------------------------------------------------------------------- */
+@layer utilities {
+  @keyframes overlay-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes overlay-zoom-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes overlay-slide-in-from-bottom {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes overlay-slide-in-from-top {
+    from {
+      opacity: 0;
+      transform: translateY(-1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes overlay-slide-in-from-left {
+    from {
+      opacity: 0;
+      transform: translateX(-1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes overlay-slide-in-from-right {
+    from {
+      opacity: 0;
+      transform: translateX(1.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-in {
+    animation-name: overlay-fade-in;
+    animation-duration: var(--overlay-anim-duration, 200ms);
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    animation-fill-mode: both;
+  }
+
+  .fade-in {
+    animation-name: overlay-fade-in;
+  }
+
+  .zoom-in-95 {
+    animation-name: overlay-zoom-in;
+  }
+
+  .slide-in-from-bottom-3 {
+    animation-name: overlay-slide-in-from-bottom;
+  }
+
+  .slide-in-from-bottom-5 {
+    animation-name: overlay-slide-in-from-bottom;
+  }
+
+  .slide-in-from-top-2 {
+    animation-name: overlay-slide-in-from-top;
+  }
+
+  .slide-in-from-left {
+    animation-name: overlay-slide-in-from-left;
+  }
+
+  .slide-in-from-right {
+    animation-name: overlay-slide-in-from-right;
+  }
+
+  .slide-in-from-right-5 {
+    animation-name: overlay-slide-in-from-right;
+  }
+
+  /* Respect the OS "reduce motion" setting: overlays appear instantly instead of
+     animating, while remaining fully visible (never stuck at opacity 0). */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-in {
+      animation-name: overlay-fade-in;
+      animation-duration: 1ms;
+      transform: none;
+    }
+  }
+
+  /* `duration-*` drives `transition-duration`, which has no effect on a
+     keyframe animation. These components already pass `duration-150` /
+     `duration-200` intending the entrance timing, so the same value is routed
+     into the animation as well rather than silently ignored. */
+  .duration-150 {
+    --overlay-anim-duration: 150ms;
+  }
+  .duration-200 {
+    --overlay-anim-duration: 200ms;
+  }
+  .duration-300 {
+    --overlay-anim-duration: 300ms;
+  }
+}
+
+/* Custom scrollbars for clean luxury feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.6);
+}
+
+/* ---------------------------------------------------------------------------
+   Admin sidebar scrollbar
+   A slightly thinner, lighter scrollbar than the global one so the desktop
+   navigation column stays visually quiet. Chromium uses the webkit rules below;
+   Firefox uses the matching `scrollbar-width` / `scrollbar-color` pair.
+--------------------------------------------------------------------------- */
+.admin-sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.45) transparent;
+}
+.admin-sidebar-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.admin-sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.admin-sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 9999px;
+}
+.admin-sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.55);
+}

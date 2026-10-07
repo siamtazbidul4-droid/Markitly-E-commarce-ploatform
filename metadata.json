@@ -1,0 +1,6 @@
+{
+  "name": "Marketly - Luxury E-Commerce Platform",
+  "description": "Premium single-vendor luxury e-commerce platform for curated fashion, watches, computing, and technology accessories.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
